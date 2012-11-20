@@ -300,7 +300,6 @@ public class Client extends JFrame {
      	String userInput=Input;
     	String Output="";
         try {
-       
         		String Command="";
         		
         	    if(StrStatus.equalsIgnoreCase("ALL UPPER CASE")){

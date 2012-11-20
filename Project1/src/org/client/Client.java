@@ -74,6 +74,7 @@ public class Client extends JFrame {
 		});
 	}
 
+	
 	/**
 	 * Create the frame.
 	 */

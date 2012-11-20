@@ -56,7 +56,6 @@ public class Client extends JFrame {
     static BigInteger globalEncryption_ServerpublicKey=null; 
     static String globalEncryption_sharedSecret = null;
     
-    //comment
 	private JPanel contentPane;
 
 	/**

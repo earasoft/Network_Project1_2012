@@ -15,7 +15,6 @@ public class ClientBase {
     private static PrintWriter out = null;
     private static BufferedReader in = null;
     
-    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		createSocket();

@@ -17,8 +17,7 @@ import org.jsoup.select.Elements;
 public class GetFileList {
 
 	public static void main(String[] args){
-		GetDataWebSite HtmlCode = new GetDataWebSite();
-		System.out.println(HtmlCode.getWebSiteHtml("http://www.earasoft.com/main/REad.txt"));
+		
 		
 		//MergeLinks("https://github.com/earasoft/Network_Project1_2012/","/earasoft/Network_Project1_2012/file.zip");
 		ArrayList<ArrayList<String>> AlFileList= getRequestAndFileList("http://www.earasoft.com/main/");

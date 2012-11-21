@@ -8,7 +8,23 @@ import java.net.URLConnection;
 
 import org.shared.performance.Timing;
 
-public class GetDataWebSite {
+public class GetDataWebSite extends Thread {
+
+	private String strDownloadURL;
+	
+	public String getStrDownloadURL() {
+		return strDownloadURL;
+	}
+
+	//used for Mutli-Threading(non-Javadoc)
+	public GetDataWebSite(String strDownloadURL) {
+		super();
+		this.strDownloadURL = strDownloadURL;
+	}
+
+	public GetDataWebSite() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getWebSiteHtml(String strURL) {
 		String Output="";
@@ -40,5 +56,22 @@ public class GetDataWebSite {
 			ex.printStackTrace();
 		}
 		return Output;
+	}
+	
+	
+	
+	public void runSingle() {
+		System.out.println(this.getWebSiteHtml(strDownloadURL));
+
+	}
+
+	/**
+	 * For Mutli-Threading(non-Javadoc)
+	 * 
+	 * @see java.lang.Thread#run()
+	 */
+	@Override
+	public void run() {
+		System.out.println(this.getWebSiteHtml(strDownloadURL));		
 	}
 }

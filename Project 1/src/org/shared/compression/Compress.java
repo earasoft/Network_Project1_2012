@@ -8,10 +8,8 @@ import java.util.zip.Inflater;
 
 import org.apache.commons.codec.binary.Base64;
 
-
 public class Compress {
-
-
+	
 	public static void main(String[] args) {
 		
 		String plaintext = "In order to graduate, each graduate student must complete either COSC880 graduate " +

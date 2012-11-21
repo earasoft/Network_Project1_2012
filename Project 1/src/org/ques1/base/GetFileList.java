@@ -14,7 +14,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class Main {
+public class GetFileList {
 
 	public static void main(String[] args){
 		GetDataWebSite HtmlCode = new GetDataWebSite();

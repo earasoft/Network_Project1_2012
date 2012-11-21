@@ -22,12 +22,18 @@ public class MessageObject implements Serializable {
 		super();
 		IntgerSequence = intgerSequence;
 		OneLineMessage = oneLineMessage;
-		MessageCurrentState=MessageState.INTIAL;
+		
+		if(MessageCurrentState==null){
+			MessageCurrentState=MessageState.INTIAL;
+		}
+		
 	}
 
 	public MessageObject() {
-		super();
-		SystemTime = System.currentTimeMillis()+"";
+		super();		
+		if(MessageCurrentState==null){
+			MessageCurrentState=MessageState.INTIAL;
+		}
 	}
 
 	public String getSystemTime() {
@@ -38,7 +44,9 @@ public class MessageObject implements Serializable {
 		MessageCurrentState=MessageState.ACK;
 	}
 	
+	
 	public void setSystemTimeCurrentTime() {
+		PreviousSystemTime=this.SystemTime;
 		SystemTime = System.currentTimeMillis()+"";
 	}
 	

@@ -2,6 +2,8 @@ package org.ques2;
 
 import java.io.Serializable;
 
+
+
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
@@ -23,6 +25,11 @@ public class Serialization {
 		
 		System.out.println(ServerMsgObj);
 		
+			
+		System.out.println(System.currentTimeMillis());
+		
+		System.out.println(System.nanoTime());
+		System.out.println(System.nanoTime());	
 		
 	}
 	

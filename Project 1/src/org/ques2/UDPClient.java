@@ -53,7 +53,8 @@ public class UDPClient {
 				
 				byte[] data = reply.getData();
 				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
-				
+				ClientMsgObj.setSystemTimeCurrentTime();
+				//Inside OBJ
 				
 
 				// echo the details of incoming data - client ip : client port -

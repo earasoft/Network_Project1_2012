@@ -28,10 +28,9 @@ public class UDPServer {
 				sock.receive(incoming);
 				byte[] data = incoming.getData();
 				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
-				//In Object
-				
-				msgObj.setPreviousSystemTime(msgObj.getSystemTime());
 				msgObj.setSystemTimeCurrentTime();
+				//In Object
+			
 
 				// echo the details of incoming data - client ip : client port -
 				// client message
@@ -40,15 +39,13 @@ public class UDPServer {
 
 
 				
-			
-				
 				
 				msgObj.ChangeStateToAck();
 				
 				
 				
 				//Delay
-				Thread.sleep(2000);
+				Thread.sleep(20000);
 				
 				
 				//Sending Data

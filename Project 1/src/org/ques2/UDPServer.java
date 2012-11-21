@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 
-public class UDPServer {
+public class UDPServer extends Thread{
 	
 	public static void main(String args[]) throws InterruptedException {
 		UDPServer UDPServerObj= new UDPServer();
 
-		UDPServerObj.startServer();
+		UDPServerObj.run();
 	}
 	
 	
@@ -33,7 +33,7 @@ public class UDPServer {
 		DatagramPacket incoming = new DatagramPacket(buffer, buffer.length);
 		
 		sock.receive(incoming);
-		System.out.println("ClientReceive");
+		System.out.println("Client Connected:"+incoming.getSocketAddress());
 		byte[] data = incoming.getData();
 		
 		HashMap<String,Object> Objs= new HashMap<String,Object>();
@@ -63,6 +63,22 @@ public class UDPServer {
 			msgObj.setIntgerSequence(Sequence.get(msgObj.getClientID()));
 		}
 	}
+	
+	
+	/**
+	 * Multi-Threaded
+	 * be able to receive incoming messages while it is processing a message
+	 */
+	@Override
+	public void run(){
+		try {
+			startServer();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void startServer() throws InterruptedException{
 		try {

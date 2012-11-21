@@ -29,7 +29,6 @@ public class Compress {
 		"I am not yet providing a link for the source code because it is still changing on a daily basis. " +
 		"If you would like it, just let me know and I will send it. ";
 		
-		
 		//plaintext = "ThisThisThisThisThisThisThisThisThisThisThisThisThisThisThisThisThisThisThisThis";
 	
 		byte[] input = plaintext.getBytes();

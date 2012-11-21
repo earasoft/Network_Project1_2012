@@ -6,10 +6,15 @@ package org.ques2;
  */
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.*;
+import java.util.Random;
 
-public class UDPClient {
-	public static void main(String args[]) throws InterruptedException {
+public class UDPClient {	 
+	static String ClientID;
+	
+	public static void main(String args[]) {
+		ClientID=org.apache.commons.codec.digest.DigestUtils.md2Hex(new BigInteger(256, new Random()).toString());
 		DatagramSocket sock = null;
 		int port = 7777;
 		String s;
@@ -19,21 +24,25 @@ public class UDPClient {
 
 		try {
 			sock = new DatagramSocket();
-			sock.setSoTimeout(1000);   // set the timeout in millisecounds.
+			sock.setSoTimeout(50);   // set the timeout in millisecounds.
 
 			InetAddress host = InetAddress.getByName("localhost");
 
 			while (true) {
 				MessageObject ClientMsgObj= new MessageObject();
+				ClientMsgObj.setClientID(ClientID);
 				ClientMsgObj.setSystemTimeCurrentTime();
+				
+				if(ClientMsgObj.getIntgerSequence()==null)
+					ClientMsgObj.setIntgerSequence(100);
+				//Inside Obj
 				
 				// take input and send the packet
 				echo("Enter message to send : ");
 				s = (String) cin.readLine();
 				
 				ClientMsgObj.setOneLineMessage(s);
-				if(ClientMsgObj.getIntgerSequence()==null)
-					ClientMsgObj.setIntgerSequence(1);
+				
 				
 
 				
@@ -44,26 +53,51 @@ public class UDPClient {
 				
 				
 				
-				
 				/////////////////////////////////////////////////////////////////////////
 				// now receive reply
 				// buffer to receive incoming data
-				byte[] buffer = new byte[65536];
-				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-				sock.receive(reply);
-
 				
-				byte[] data = reply.getData();
-				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
-				ClientMsgObj.setSystemTimeCurrentTime();
-				//Inside OBJ
-				
-
-				// echo the details of incoming data - client ip : client port -
-				// client message
-				echo(reply.getAddress().getHostAddress() + " : "
-						+ reply.getPort() + " - " + msgObj);
+				int maxtries=0;
+				boolean retry = true;
+				while(retry==true){
+					retry=false;
+					try {
 						
+				
+						byte[] buffer = new byte[65536];
+						DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+						sock.receive(reply);
+
+						
+						byte[] data = reply.getData();
+						MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
+						ClientMsgObj.setSystemTimeCurrentTime();
+						//Inside OBJ
+						
+
+						// echo the details of incoming data - client ip : client port -
+						// client message
+						echo(reply.getAddress().getHostAddress() + " : "
+								+ reply.getPort() + " - " + msgObj);
+								
+						
+						
+					}catch (Exception e) {
+						retry=true;
+						maxtries++;
+						
+						sock.setSoTimeout(sock.getSoTimeout()*2);  // set the timeout in millisecounds.
+						System.err.println("Retry #"+ maxtries + "   " + e+"  Timeout="+sock.getSoTimeout());
+						
+						
+						
+						if(maxtries>=3){
+							retry=false;
+						}
+					}
+				}
+			
+		
 						
 			}
 		}

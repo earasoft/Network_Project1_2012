@@ -7,8 +7,13 @@ package org.ques2;
 
 import java.io.*;
 import java.net.*;
+import java.util.HashMap;
 
 public class UDPServer {
+	
+	private static HashMap<String,Integer> Sequence= new HashMap<String,Integer>();
+	
+	
 	public static void main(String args[]) throws InterruptedException {
 		DatagramSocket sock = null;
 
@@ -30,23 +35,25 @@ public class UDPServer {
 				byte[] data = incoming.getData();
 				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
 				msgObj.setSystemTimeCurrentTime();
-				msgObj.increaseIntegerByOne();
+				
+				if(Sequence.containsKey(msgObj.getClientID())){
+					Integer CurrentNum= Sequence.get(msgObj.getClientID());
+					Sequence.put(msgObj.getClientID(), CurrentNum+1);
+					msgObj.setIntgerSequence(Sequence.get(msgObj.getClientID()));
+				}else{
+					Sequence.put(msgObj.getClientID(), 2);
+					msgObj.setIntgerSequence(Sequence.get(msgObj.getClientID()));
+				}
+				
 				//Inside {  Data  
 			
 
 				// echo the details of incoming data - client ip : client port -
 				// client message
 				echo(incoming.getAddress().getHostAddress() + " : "
-						+ incoming.getPort() + " - " + msgObj);
+						+ incoming.getPort() + " - " + msgObj + "\t ID:"+msgObj.getClientID());
 
 
-				
-				
-				
-				
-				
-				
-		
 				System.out.println("Before Delay"+msgObj);
 				Thread.sleep(100); //Delay
 				msgObj.setSystemTimeCurrentTime();
@@ -55,7 +62,17 @@ public class UDPServer {
 				//Inside }
 				//Required Post 
 				msgObj.ChangeStateToAck();
-				msgObj.increaseIntegerByOne();
+				
+				
+				if(Sequence.containsKey(msgObj.getClientID())){
+					Integer CurrentNum= Sequence.get(msgObj.getClientID());
+					Sequence.put(msgObj.getClientID(), CurrentNum+1);
+					msgObj.setIntgerSequence(Sequence.get(msgObj.getClientID()));
+				}else{
+					Sequence.put(msgObj.getClientID(), 2);
+					msgObj.setIntgerSequence(Sequence.get(msgObj.getClientID()));
+				}
+				
 				//Sending Data back to Client
 				byte[] MsgObjData = Serialization.serializeAndCompress(msgObj);
 				DatagramPacket dp = new DatagramPacket(MsgObjData,

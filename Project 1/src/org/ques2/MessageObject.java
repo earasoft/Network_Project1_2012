@@ -7,6 +7,7 @@ public class MessageObject implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private String ClientID;
 	private String PreviousSystemTime;
 	private String SystemTime;
 	private Integer IntgerSequence;
@@ -128,6 +129,14 @@ public class MessageObject implements Serializable {
 		} else if (!SystemTime.equals(other.SystemTime))
 			return false;
 		return true;
+	}
+
+	public String getClientID() {
+		return ClientID;
+	}
+
+	public void setClientID(String clientID) {
+		ClientID = clientID;
 	}
 	
 

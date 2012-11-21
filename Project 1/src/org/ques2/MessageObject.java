@@ -8,12 +8,12 @@ public class MessageObject implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	String SystemTime;
-	String IntgerSequence;
+	Integer IntgerSequence;
 	String OneLineMessage;
 	
 	
 	
-	public MessageObject(String intgerSequence,
+	public MessageObject(Integer intgerSequence,
 			String oneLineMessage) {
 		super();
 		SystemTime = System.currentTimeMillis()+"";
@@ -29,12 +29,16 @@ public class MessageObject implements Serializable {
 		SystemTime = systemTime;
 	}
 
-	public String getIntgerSequence() {
+	public Integer getIntgerSequence() {
 		return IntgerSequence;
 	}
 
-	public void setIntgerSequence(String intgerSequence) {
+	public void setIntgerSequence(Integer intgerSequence) {
 		IntgerSequence = intgerSequence;
+	}
+	
+	public void increaseIntegerByOne(){
+		
 	}
 
 	public String getOneLineMessage() {

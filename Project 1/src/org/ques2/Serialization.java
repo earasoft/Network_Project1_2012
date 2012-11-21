@@ -12,17 +12,16 @@ public class Serialization {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		MessageObject MsgObj= new MessageObject("1,5,6,8,4,","One line Message");
-		
-		byte[] dataCompress=serializeAndCompress(MsgObj);
+		//Intial Message
+		MessageObject ClientMsgObj= new MessageObject(1,"One line Message");
+		byte[] dataCompress=serializeAndCompress(ClientMsgObj);
 		
 	
 		
 		//deserialize:
-		MessageObject yourObject = (MessageObject) deserializeAndDecompress(dataCompress);
+		MessageObject ServerMsgObj = (MessageObject) deserializeAndDecompress(dataCompress);
 		
-		System.out.println(yourObject);
+		System.out.println(ServerMsgObj);
 		
 		
 	}

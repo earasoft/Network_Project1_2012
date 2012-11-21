@@ -9,7 +9,7 @@ import java.io.*;
 import java.net.*;
 
 public class UDPServer {
-	public static void main(String args[]) {
+	public static void main(String args[]) throws InterruptedException {
 		DatagramSocket sock = null;
 
 		try {
@@ -38,6 +38,9 @@ public class UDPServer {
 				DatagramPacket dp = new DatagramPacket(s.getBytes(),
 						s.getBytes().length, incoming.getAddress(),
 						incoming.getPort());
+				
+				//Delay
+				Thread.sleep(1000);
 				sock.send(dp);
 			}
 		}

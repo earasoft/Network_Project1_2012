@@ -13,10 +13,10 @@ public class MessageObject implements Serializable {
 	
 	
 	
-	public MessageObject(String systemTime, String intgerSequence,
+	public MessageObject(String intgerSequence,
 			String oneLineMessage) {
 		super();
-		SystemTime = systemTime;
+		SystemTime = System.currentTimeMillis()+"";
 		IntgerSequence = intgerSequence;
 		OneLineMessage = oneLineMessage;
 	}

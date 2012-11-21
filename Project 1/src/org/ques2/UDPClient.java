@@ -1,26 +1,34 @@
 package org.ques2;
 
-/**
- Java ECHO client with UDP sockets example
- Silver Moon (m00n.silv3r@gmail.com)
- */
-
 import java.io.*;
 import java.math.BigInteger;
 import java.net.*;
 import java.util.Random;
 
-public class UDPClient {	 
-	static String ClientID;
-	
+import org.apache.commons.codec.digest.DigestUtils;
+
+public class UDPClient {
+
 	public static void main(String args[]) {
-		ClientID=org.apache.commons.codec.digest.DigestUtils.md2Hex(new BigInteger(256, new Random()).toString());
-		DatagramSocket sock = null;
-		int port = 7777;
+		UDPClient UDPClientObj= new UDPClient();
+		UDPClientObj.StartClient();
+	}
+	
+	
+	private DatagramSocket sock = null;
+	private String ClientID;
+	private int port = 7777;
+	
+	public UDPClient(){
+		ClientID=DigestUtils.md2Hex(new BigInteger(256, new Random()).toString());
+		
+	}
+
+
+	public void StartClient(){
 		String s;
 
-		BufferedReader cin = new BufferedReader(
-				new InputStreamReader(System.in));
+		BufferedReader cin = new BufferedReader(new InputStreamReader(System.in));
 
 		try {
 			sock = new DatagramSocket();
@@ -43,15 +51,9 @@ public class UDPClient {
 				
 				ClientMsgObj.setOneLineMessage(s);
 				
-				
-
-				
-
 				byte[] MsgObjDataSending = Serialization.serializeAndCompress(ClientMsgObj);
 				DatagramPacket dp = new DatagramPacket(MsgObjDataSending,MsgObjDataSending.length, host, port);
 				sock.send(dp);
-				
-				
 				
 				/////////////////////////////////////////////////////////////////////////
 				// now receive reply
@@ -62,8 +64,6 @@ public class UDPClient {
 				while(retry==true){
 					retry=false;
 					try {
-						
-				
 						byte[] buffer = new byte[65536];
 						DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 						sock.receive(reply);
@@ -79,8 +79,6 @@ public class UDPClient {
 						// client message
 						echo(reply.getAddress().getHostAddress() + " : "
 								+ reply.getPort() + " - " + msgObj);
-								
-						
 						
 					}catch (Exception e) {
 						retry=true;
@@ -89,26 +87,18 @@ public class UDPClient {
 						sock.setSoTimeout(sock.getSoTimeout()*2);  // set the timeout in millisecounds.
 						System.err.println("Retry #"+ maxtries + "   " + e+"  Timeout="+sock.getSoTimeout());
 						
-						
-						
 						if(maxtries>=3){
 							retry=false;
 						}
 					}
 				}
-			
-		
-						
 			}
-		}
-
-		catch (IOException e) {
+		}catch (IOException e) {
 			System.err.println("IOException " + e);
 		}
 	}
-
 	// simple function to echo data to terminal
-	public static void echo(String msg) {
+	public void echo(String msg) {
 		System.out.println(msg);
 	}
 }

@@ -25,11 +25,13 @@ public class UDPServer {
 
 			// communication loop
 			while (true) {
+				//Getting Data from Client
 				sock.receive(incoming);
 				byte[] data = incoming.getData();
 				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
 				msgObj.setSystemTimeCurrentTime();
-				//In Object
+				msgObj.increaseIntegerByOne();
+				//Inside {  Data  
 			
 
 				// echo the details of incoming data - client ip : client port -
@@ -40,16 +42,21 @@ public class UDPServer {
 
 				
 				
+				
+				
+				
+				
+		
+				System.out.println("Before Delay"+msgObj);
+				Thread.sleep(100); //Delay
+				msgObj.setSystemTimeCurrentTime();
+				System.out.println("After Delay"+msgObj);
+				
+				//Inside }
+				//Required Post 
 				msgObj.ChangeStateToAck();
-				
-				
-				
-				//Delay
-				Thread.sleep(20000);
-				
-				
-				//Sending Data
-				
+				msgObj.increaseIntegerByOne();
+				//Sending Data back to Client
 				byte[] MsgObjData = Serialization.serializeAndCompress(msgObj);
 				DatagramPacket dp = new DatagramPacket(MsgObjData,
 						MsgObjData.length, incoming.getAddress(),

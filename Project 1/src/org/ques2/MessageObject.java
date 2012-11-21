@@ -63,7 +63,7 @@ public class MessageObject implements Serializable {
 	}
 	
 	public void increaseIntegerByOne(){
-		
+		IntgerSequence=IntgerSequence+1;
 	}
 
 	public String getOneLineMessage() {

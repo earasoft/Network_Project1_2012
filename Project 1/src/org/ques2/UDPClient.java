@@ -9,7 +9,7 @@ import java.io.*;
 import java.net.*;
 
 public class UDPClient {
-	public static void main(String args[]) {
+	public static void main(String args[]) throws InterruptedException {
 		DatagramSocket sock = null;
 		int port = 7777;
 		String s;
@@ -19,6 +19,7 @@ public class UDPClient {
 
 		try {
 			sock = new DatagramSocket();
+			sock.setSoTimeout(1000);   // set the timeout in millisecounds.
 
 			InetAddress host = InetAddress.getByName("localhost");
 
@@ -42,8 +43,9 @@ public class UDPClient {
 				sock.send(dp);
 				
 				
-				 
 				
+				
+				/////////////////////////////////////////////////////////////////////////
 				// now receive reply
 				// buffer to receive incoming data
 				byte[] buffer = new byte[65536];

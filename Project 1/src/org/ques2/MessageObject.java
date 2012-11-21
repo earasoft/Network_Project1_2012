@@ -7,24 +7,41 @@ public class MessageObject implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String SystemTime;
-	Integer IntgerSequence;
-	String OneLineMessage;
+	private String PreviousSystemTime;
+	private String SystemTime;
+	private Integer IntgerSequence;
+	private String OneLineMessage;
+	private Enum<?> MessageCurrentState;
 	
-	
+	public Enum<?> getMessageCurrentState() {
+		return MessageCurrentState;
+	}
 	
 	public MessageObject(Integer intgerSequence,
 			String oneLineMessage) {
 		super();
-		SystemTime = System.currentTimeMillis()+"";
 		IntgerSequence = intgerSequence;
 		OneLineMessage = oneLineMessage;
+		MessageCurrentState=MessageState.INTIAL;
+	}
+
+	public MessageObject() {
+		super();
+		SystemTime = System.currentTimeMillis()+"";
 	}
 
 	public String getSystemTime() {
 		return SystemTime;
 	}
 
+	public void ChangeStateToAck(){
+		MessageCurrentState=MessageState.ACK;
+	}
+	
+	public void setSystemTimeCurrentTime() {
+		SystemTime = System.currentTimeMillis()+"";
+	}
+	
 	public void setSystemTime(String systemTime) {
 		SystemTime = systemTime;
 	}
@@ -49,12 +66,22 @@ public class MessageObject implements Serializable {
 		OneLineMessage = oneLineMessage;
 	}
 
+	public String getPreviousSystemTime() {
+		return PreviousSystemTime;
+	}
+
+	public void setPreviousSystemTime(String previousSystemTime) {
+		PreviousSystemTime = previousSystemTime;
+	}
+
 	@Override
 	public String toString() {
-		return "MessageObject [SystemTime=" + SystemTime + ", IntgerSequence="
-				+ IntgerSequence + ", OneLineMessage=" + OneLineMessage + "]";
+		return "MessageObject [PreviousSystemTime=" + PreviousSystemTime
+				+ ", SystemTime=" + SystemTime + ", IntgerSequence="
+				+ IntgerSequence + ", OneLineMessage=" + OneLineMessage
+				+ ", MessageCurrentState=" + MessageCurrentState + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

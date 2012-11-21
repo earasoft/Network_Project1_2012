@@ -23,27 +23,45 @@ public class UDPClient {
 			InetAddress host = InetAddress.getByName("localhost");
 
 			while (true) {
+				MessageObject ClientMsgObj= new MessageObject();
+				ClientMsgObj.setSystemTimeCurrentTime();
+				
 				// take input and send the packet
 				echo("Enter message to send : ");
 				s = (String) cin.readLine();
-				byte[] b = s.getBytes();
+				
+				ClientMsgObj.setOneLineMessage(s);
+				if(ClientMsgObj.getIntgerSequence()==null)
+					ClientMsgObj.setIntgerSequence(1);
+				
 
-				DatagramPacket dp = new DatagramPacket(b, b.length, host, port);
+				
+
+				byte[] MsgObjDataSending = Serialization.serializeAndCompress(ClientMsgObj);
+				DatagramPacket dp = new DatagramPacket(MsgObjDataSending,MsgObjDataSending.length, host, port);
 				sock.send(dp);
-
+				
+				
+				 
+				
 				// now receive reply
 				// buffer to receive incoming data
 				byte[] buffer = new byte[65536];
 				DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 				sock.receive(reply);
 
+				
 				byte[] data = reply.getData();
-				s = new String(data, 0, reply.getLength());
+				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
+				
+				
 
 				// echo the details of incoming data - client ip : client port -
 				// client message
 				echo(reply.getAddress().getHostAddress() + " : "
-						+ reply.getPort() + " - " + s);
+						+ reply.getPort() + " - " + msgObj);
+						
+						
 			}
 		}
 

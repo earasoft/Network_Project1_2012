@@ -27,20 +27,36 @@ public class UDPServer {
 			while (true) {
 				sock.receive(incoming);
 				byte[] data = incoming.getData();
-				String s = new String(data, 0, incoming.getLength());
+				MessageObject msgObj = (MessageObject) Serialization.deserializeAndDecompress(data);
+				//In Object
+				
+				msgObj.setPreviousSystemTime(msgObj.getSystemTime());
+				msgObj.setSystemTimeCurrentTime();
 
 				// echo the details of incoming data - client ip : client port -
 				// client message
 				echo(incoming.getAddress().getHostAddress() + " : "
-						+ incoming.getPort() + " - " + s);
+						+ incoming.getPort() + " - " + msgObj);
 
-				s = "OK : " + s;
-				DatagramPacket dp = new DatagramPacket(s.getBytes(),
-						s.getBytes().length, incoming.getAddress(),
-						incoming.getPort());
+
+				
+			
+				
+				
+				msgObj.ChangeStateToAck();
+				
+				
 				
 				//Delay
-				Thread.sleep(1000);
+				Thread.sleep(2000);
+				
+				
+				//Sending Data
+				
+				byte[] MsgObjData = Serialization.serializeAndCompress(msgObj);
+				DatagramPacket dp = new DatagramPacket(MsgObjData,
+						MsgObjData.length, incoming.getAddress(),
+						incoming.getPort());
 				sock.send(dp);
 			}
 		}

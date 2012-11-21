@@ -6,11 +6,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class JavaGetUrl {
+import org.shared.performance.Timing;
+
+public class GetDataWebSite {
 
 	public String getWebSiteHtml(String strURL) {
 		String Output="";
 
+		Timing Time=new Timing();
+		Time.start();
+		
 		try {
 			URL url = new URL(strURL);
 			URLConnection urlc = url.openConnection();
@@ -27,7 +32,7 @@ public class JavaGetUrl {
 
 			
 			Output+=builder.toString().trim();
-			Output+="\n\n[The size of the web page is "+ builder.length() / 1024 + " Kilobytes.]";
+			Output+="\n\n[The size of the web page is "+ builder.length() / 1024 + " Kilobytes. It Took "+Time.stop_SecDouble()+" Seconds]";
 
 		} catch (MalformedURLException ex) {
 			ex.printStackTrace();
@@ -36,7 +41,4 @@ public class JavaGetUrl {
 		}
 		return Output;
 	}
-
-
-
 }

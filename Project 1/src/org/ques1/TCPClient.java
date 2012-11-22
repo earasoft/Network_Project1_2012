@@ -1,5 +1,9 @@
 package org.ques1;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.ques1.base.GetDataController;
@@ -9,12 +13,14 @@ public class TCPClient {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
 		TCPClient TCPClient1= new TCPClient();
-		TCPClient1.option1();
+		//TCPClient1.option1();
+		TCPClient1.option2();
 	}
 	
 	
@@ -63,7 +69,76 @@ public class TCPClient {
 		
 	}
 	
-	public void option2(){
+	public void option2() throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		 
+		System.out.println("Please enter a website URL");
+		System.out.println("Example > \"http://www.earasoft.com/Cosc650/\"");
+		
+		System.out.print("Enter>>");
+		String strWebsiteName=br.readLine();
+
+		
+		
+		System.out.println("-----\nGetting File List");
+		ArrayList<ArrayList<String>> AlFileList= GetFileList.getRequestAndFileList(strWebsiteName);
+		
+		
+		
+		for(int i= 0;i<AlFileList.size();i++){
+				String FileName=AlFileList.get(i).get(0);
+				System.out.println(i+1+") "+FileName);
+		}
+		
+		
+		
+		
+		ArrayList<String> SelectFiles=  new ArrayList<String>(); 
+		
+		boolean isValidHand=false;
+		while(isValidHand==false){
+			System.out.println("Please pick two file:");
+			System.out.println("Example > \"1,5\"");
+			System.out.print("Enter>>");
+			
+			try{
+				String userInputString=br.readLine();
+				String[] Files=userInputString.split(",");
+				
+				if(Files.length==2){
+					int intFile1=Integer.parseInt(Files[0]);
+					int intFile2=Integer.parseInt(Files[1]);
+					
+					
+					SelectFiles.add(AlFileList.get(intFile1-1).get(1));
+					SelectFiles.add(AlFileList.get(intFile2-1).get(1));
+					isValidHand=true;
+				}else{
+					System.out.println("Invalid Input");
+				}
+				
+				
+				
+			}catch (Exception E){
+				System.out.println("Invalid Formatting");
+			}
+			
+			
+		   
+		 }//end while
+		 
+		System.out.println("\n\n\n------------------");
+		
+
+		GetDataController GetDataControllerObj= new GetDataController();
+		
+		for(int i=0;i<SelectFiles.size();i++){
+			GetDataControllerObj.AddHTTPFileLink(SelectFiles.get(i));
+		}
+		
+		
+		GetDataControllerObj.DownloadMutiThread();
+		
 		
 	}
 	

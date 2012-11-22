@@ -48,7 +48,7 @@ public class GetDataWebSite extends Thread {
 
 			
 			Output+=builder.toString().trim();
-			Output+="\n\n[The size of the web page is "+ builder.length() / 1024 + " Kilobytes. It Took "+Time.stop_SecDouble()+" Seconds]";
+			Output+="\n\n[The URL ="+strURL+".  The size of the web page is "+ builder.length() / 1024 + " Kilobytes. It Took "+Time.stop_SecDouble()+" Seconds]";
 
 		} catch (MalformedURLException ex) {
 			ex.printStackTrace();

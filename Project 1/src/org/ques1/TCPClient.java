@@ -109,7 +109,6 @@ public class TCPClient {
 					int intFile1=Integer.parseInt(Files[0]);
 					int intFile2=Integer.parseInt(Files[1]);
 					
-					
 					SelectFiles.add(AlFileList.get(intFile1-1).get(1));
 					SelectFiles.add(AlFileList.get(intFile2-1).get(1));
 					isValidHand=true;

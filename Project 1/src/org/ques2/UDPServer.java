@@ -90,13 +90,11 @@ public class UDPServer extends Thread{
 				HashMap<String,Object> Objs= recieveObject();
 				DatagramPacket incoming=(DatagramPacket) Objs.get("Connection");
 				MessageObject msgObj = (MessageObject) Objs.get("MessageObject");
-				
-				
 				//Pre-Requirement 
 				msgObj.setSystemTimeCurrentTime();
 				addSeqNum(msgObj);
-				//Inside Object {  Data  
-				//--------------------
+				//	Inside Object {  Data  
+				//	--------------------
 			
 
 				// echo the details of incoming data - client ip : client port -
@@ -111,8 +109,8 @@ public class UDPServer extends Thread{
 				//System.out.println("After Delay"+msgObj);
 				
 				
-				//--------------------
-				//Inside Object }
+				//	--------------------
+				//	Inside Object }
 				//Post Requirement 
 				msgObj.ChangeStateToAck();
 				addSeqNum(msgObj);

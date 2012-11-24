@@ -21,7 +21,6 @@ public class UDPClient {
 	
 	public UDPClient(){
 		ClientID=DigestUtils.md2Hex(new BigInteger(256, new Random()).toString());
-		
 	}
 
 
@@ -38,12 +37,15 @@ public class UDPClient {
 
 			while (true) {
 				MessageObject ClientMsgObj= new MessageObject();
+				//Pre-Requirement 
 				ClientMsgObj.setClientID(ClientID);
 				ClientMsgObj.setSystemTimeCurrentTime();
 				
 				if(ClientMsgObj.getIntgerSequence()==null)
-					ClientMsgObj.setIntgerSequence(100);
-				//Inside Obj
+					ClientMsgObj.setIntgerSequence(1);
+				
+				//	Inside Object {  Data  
+				//	--------------------
 				
 				// take input and send the packet
 				echo("Enter message to send : ");
@@ -96,7 +98,10 @@ public class UDPClient {
 		}catch (IOException e) {
 			System.err.println("IOException " + e);
 		}
-	}
+	}//end sum
+	
+	
+	
 	// simple function to echo data to terminal
 	public void echo(String msg) {
 		System.out.println(msg);

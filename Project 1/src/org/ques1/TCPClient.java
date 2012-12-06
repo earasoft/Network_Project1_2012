@@ -19,8 +19,58 @@ public class TCPClient {
 		// TODO Auto-generated method stub
 
 		TCPClient TCPClient1= new TCPClient();
-		//TCPClient1.option1();
-		TCPClient1.option2();
+		
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		 
+		System.out.println("Please pick an option");
+		System.out.println("1) Get two file from site (none interactive)");
+		System.out.println("2) Get two file from site (interactive)");
+		
+		
+		Integer  intGlobalOption=null;
+		boolean isValidHand=false;
+		while(isValidHand==false){
+			System.out.println("Please pick an option:");
+			System.out.println("Example > \"1\"");
+			System.out.print("Enter>>");
+			
+			try{
+				String userInputString=br.readLine();
+				Integer Option=Integer.parseInt(userInputString);
+				
+				if( Option==1|| Option==2){
+					
+					 intGlobalOption=Option;
+					isValidHand=true;
+				}else{
+					System.out.println("Invalid Input");
+				}
+				
+				
+				
+			}catch (Exception E){
+				System.out.println("Invalid Formatting");
+			}
+			
+			
+		   
+		 }//end while
+		
+		
+		System.out.println( intGlobalOption);
+		
+		
+		
+		if(intGlobalOption==1){
+			TCPClient1.option1();
+		}else{
+			TCPClient1.option2();
+		}
+		//
+		
+		
+		
 	}
 	
 	

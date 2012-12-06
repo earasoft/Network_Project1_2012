@@ -4,10 +4,10 @@ import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 
-public class UDPServer extends Thread{
+public class RiveraUDPServer extends Thread{
 	
 	public static void main(String args[]) throws InterruptedException {
-		UDPServer UDPServerObj= new UDPServer();
+		RiveraUDPServer UDPServerObj= new RiveraUDPServer();
 
 		UDPServerObj.run();
 	}
@@ -17,7 +17,7 @@ public class UDPServer extends Thread{
 	private DatagramSocket sock = null;
 	private int port = 7777;
 	
-	public UDPServer(){
+	public RiveraUDPServer(){
 		// 1. creating a server socket, parameter is local port number
 		try {
 			sock = new DatagramSocket(port);

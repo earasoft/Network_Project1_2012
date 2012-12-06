@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.ques1.base.GetDataController;
 import org.ques1.base.GetFileList;
 
-public class TCPClient {
+public class RiveraTCPClient {
 
 	/**
 	 * @param args
@@ -18,7 +18,7 @@ public class TCPClient {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 
-		TCPClient TCPClient1= new TCPClient();
+		RiveraTCPClient TCPClient1= new RiveraTCPClient();
 		
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +32,7 @@ public class TCPClient {
 		boolean isValidHand=false;
 		while(isValidHand==false){
 			System.out.println("Please pick an option:");
-			System.out.println("Example > \"1\"");
+			System.out.println("Example > \"#\"");
 			System.out.print("Enter>>");
 			
 			try{

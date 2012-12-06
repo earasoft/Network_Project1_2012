@@ -7,10 +7,10 @@ import java.util.Random;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-public class UDPClient {
+public class RiveraUDPClient {
 
 	public static void main(String args[]) {
-		UDPClient UDPClientObj= new UDPClient();
+		RiveraUDPClient UDPClientObj= new RiveraUDPClient();
 		UDPClientObj.StartClient();
 	}
 	
@@ -19,7 +19,7 @@ public class UDPClient {
 	private String ClientID;
 	private int port = 7777;
 	
-	public UDPClient(){
+	public RiveraUDPClient(){
 		ClientID=DigestUtils.md2Hex(new BigInteger(256, new Random()).toString());
 	}
 

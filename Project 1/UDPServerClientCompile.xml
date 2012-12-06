@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Project 1">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="./UDPServer.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.ques2.UDPServer"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="./bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="./lib/jsoup-1.7.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="./lib/commons-lang3-3.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="./lib/commons-codec-1.7.jar"/>
+        </jar>
+    
+	
+	<jar destfile="./UDPClient.jar" filesetmanifest="mergewithoutmain">
+	            <manifest>
+	                <attribute name="Main-Class" value="org.ques2.UDPClient"/>
+	                <attribute name="Class-Path" value="."/>
+	            </manifest>
+	            <fileset dir="./bin"/>
+	            <zipfileset excludes="META-INF/*.SF" src="./lib/jsoup-1.7.1.jar"/>
+	            <zipfileset excludes="META-INF/*.SF" src="./lib/commons-lang3-3.1.jar"/>
+	            <zipfileset excludes="META-INF/*.SF" src="./lib/commons-codec-1.7.jar"/>
+	  </jar>
+	  
+    	</target>
+</project>

@@ -1,1 +1,2 @@
-Read me file for Repo
+cosc716-rivera
+==============
